@@ -1,9 +1,12 @@
 package com.bit.sams.entity.teachers;
 
 import com.bit.sams.entity.BaseEntity;
+import lombok.Data;
+
+import javax.persistence.Entity;
+
 @Entity
-@Getter
-@Setter
+@Data
 public class Teacher extends BaseEntity {
 
     String teacherName;
