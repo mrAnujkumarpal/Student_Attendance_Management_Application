@@ -9,7 +9,7 @@ public class Student extends BaseEntity {
     private String rollNumber;
     private String password;
 
-    
+
 
 
 }
