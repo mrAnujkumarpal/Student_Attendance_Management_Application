@@ -9,10 +9,13 @@ import javax.persistence.Entity;
 @Data
 public class Teacher extends BaseEntity {
 
-    String teacherName;
-    String mobileNumber;
-    String teacherEmail;
-    String password;
-    String highestQualification;
+    private String firstName;
+    private String lastName;
+    private String mobileNumber;
+    private String teacherEmail;
+    private String password;
 
+    private String highestQualification;
+    private String teacherRole;
+    private String department;
 }

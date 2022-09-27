@@ -1,12 +1,12 @@
 package com.bit.sams.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,30 +19,22 @@ import java.sql.Timestamp;
 @Setter
 public abstract class BaseEntity {
 
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-private Long id ;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
+    @JsonIgnore
+    private int createdBy;
 
-private String name;
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    @CreationTimestamp
+    private Timestamp createdOn;
 
-@JsonIgnore
-private Long createdBy;
+    @JsonIgnore
+    private int modifiedBy;
 
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    private Timestamp modifiedOn;
 
-@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-private Timestamp createdOn;
-
-
-@JsonIgnore
-private Long modifiedBy;
-
-
-
-@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-private Timestamp modifiedOn;
-
-private boolean enable;
-
-
+    private boolean enable = true;
 }

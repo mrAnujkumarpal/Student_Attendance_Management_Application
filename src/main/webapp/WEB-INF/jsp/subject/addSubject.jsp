@@ -1,0 +1,110 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+    <head><title>BGI | ${mode} Teacher</title></head>
+    <body>
+        <%@include file="/WEB-INF/jsp/common/header.jsp"%>
+        <%@include file="/WEB-INF/jsp/common/footer.jsp"%>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col s12">
+                        <h5 class="grey-text"><i class="Small material-icons profile-card-i">add_circle_outline</i>${mode} Subject</h5>
+                    </div>
+
+                    <div class="col s12 m12    z-depth-4 card-panel">
+                        <form  method="post" action="/newSubject">
+                            <div class="row">
+                                <div class="input-field col s10 offset-s1 center-align">
+                                    <c:if test="${success ne null}">
+                                        <c:if test="${success eq  'true'}">
+
+                                            <span class="green-text accent-4">${message} </span>
+                                        </c:if>
+                                        <c:if test="${success eq  'false'}">
+                                            <div class="red-text accent-4">${message} </div>
+                                        </c:if>
+                                    </c:if>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <input  name="id" type="hidden"   value="${subject.id}">
+                                <div class="col s12 m12 l12">
+                                    <select class="browser-default" name="department" style="margin: 5px;">
+                                        <option value="" disabled selected>Select Department</option>
+                                        <c:forEach items="${departments}" var="dept">
+                                            <option value="${dept}"<c:if test="${dept == subject.department}">selected</c:if>>${dept}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m6 l6">
+                                    <select class="browser-default"  id="mainCourseDropdown" name="courseId" style="margin: 5px;">
+                                        <option value="" disabled selected>Select Main Course</option>
+
+                                        <c:forEach items="${courseList}" var="course">
+                                            <option value="${course.id}"<c:if test="${course.id == subject.courseId}">selected</c:if>>${course.courseName}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="col s12 m6 l6">
+                                    <select class="browser-default"  id="subCourseDropdown" name="subCourseId" style="margin: 5px;">
+                                        <option value="" disabled selected>Select Semester</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input name="subjectCode" type="text" class="validate" data-length="30"value="${subject.subjectCode}"/>
+                                    <label for="subjectCode">Subject Code</label>
+                                </div>
+
+                                <div class="input-field col s6">
+                                    <input name="subjectName" type="text" class="validate" data-length="30"value="${subject.subjectName}"/>
+                                    <label for="subjectName">Subject Name</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button href="#" class="btn  btn-large waves-effect waves-light col s12">${mode} Subject</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+        <!-- jQuery -->
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#mainCourseDropdown').on('change', function () {
+                    var countryId = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/findBranchesByCourseId/' + countryId,
+                        success: function (result) {
+                            var result = JSON.parse(result);
+                            var s = '';
+                            for (var i = 0; i < result.length; i++) {
+                                s += '<option value="' + result[i].id + '">' + result[i].branchName + '</option>';
+                            }
+                            $('#subCourseDropdown').html(s);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </body>
+</html>

@@ -13,8 +13,10 @@ public class Student extends BaseEntity {
     private String lastName;
     private String rollNumber;
     private String password;
-
-
+    private String studentEmail;
+    private String description;
+    private int courseId;
+    private int subCourseId;
 
 
 }
