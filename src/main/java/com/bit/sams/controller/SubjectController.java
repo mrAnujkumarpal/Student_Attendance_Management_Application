@@ -1,6 +1,5 @@
 package com.bit.sams.controller;
 
-import com.bit.sams.entity.course.Course;
 import com.bit.sams.entity.subject.Subject;
 import com.bit.sams.service.BranchService;
 import com.bit.sams.service.CourseService;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 @RequestMapping
@@ -50,7 +47,10 @@ public class SubjectController {
     @PostMapping("newSubject")
     public ModelAndView addNewCourse(@ModelAttribute Subject subject) {
         System.out.println("Here to add new subject");
+
+
         subjectService.addSubject(subject);
+
 
         ModelAndView mv = new ModelAndView("subject/addSubject");
         mv.addObject("mode", "Add New");

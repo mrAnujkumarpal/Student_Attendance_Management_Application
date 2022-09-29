@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BranchService {
 
-    void newBranch(Branch course);
+    void newBranch(Branch course) throws Exception;
 
     List<Branch> allBranches();
 

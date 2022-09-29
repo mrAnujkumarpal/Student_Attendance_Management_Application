@@ -41,10 +41,11 @@ public class BranchController {
     }
 
     @PostMapping("/addBranch")
-    public ModelAndView addNewCourse(@ModelAttribute Branch branch, ModelMap model) {
+    public ModelAndView addNewCourse(@ModelAttribute Branch branch, ModelMap model) throws Exception{
 
         System.out.println("Description ::: " + branch.getDescription());
-        branchService.newBranch(branch);
+
+        branchService.newBranch(branch) ;
 
         ModelAndView mv = new ModelAndView("course/branch");
         mv.addObject("mode", "Add New");

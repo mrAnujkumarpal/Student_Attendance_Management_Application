@@ -15,7 +15,7 @@ public class BranchImpl implements BranchService {
     BranchRepository branchRepository;
 
     @Override
-    public void newBranch(Branch course) {
+    public void newBranch(Branch course) throws Exception {
         System.out.println("Branch added inside repo");
         branchRepository.save(course);
     }

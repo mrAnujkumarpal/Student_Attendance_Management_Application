@@ -23,7 +23,7 @@ public class DefaultController {
 
     @GetMapping(value = {"/",""})
     public String defaultPage() {
-        return "redirect:/login";
+        return "redirect:/course";
     }
 
     @GetMapping(value = "/login")

@@ -9,10 +9,10 @@ import java.util.List;
 @Repository
 public interface AppUserRepository extends JpaRepository<ApplicationUser,Integer> {
 
-    ApplicationUser findByEmail(String email);
+    //ApplicationUser findByEmail(String email);
 
-    List<ApplicationUser> findByEnabled(boolean enabled);
+    //List<ApplicationUser> findByEnabled(boolean enabled);
 
-    ApplicationUser findByEmailAndPasswordAndEnabled(String email, String password, boolean enabled);
+   // ApplicationUser findByEmailAndPasswordAndEnabled(String email, String password, boolean enabled);
 
 }
