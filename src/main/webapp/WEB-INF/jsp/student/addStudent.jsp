@@ -20,14 +20,19 @@
                     <div class="col s12 m12    z-depth-4 card-panel">
                         <form  method="post" action="/addStudent">
                             <div class="row">
-                                <div class="input-field col s10 offset-s1 center-align">
+                                <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
                                     <c:if test="${success ne null}">
                                         <c:if test="${success eq  'true'}">
-
                                             <span class="green-text accent-4">${message} </span>
                                         </c:if>
                                         <c:if test="${success eq  'false'}">
-                                            <div class="red-text accent-4">${message} </div>
+                                            <div class="red-text accent-4">
+                                            <ul>
+                                                <c:forEach var="validateMsg" items="${validationList}">
+                                                    <li> ${validateMsg}</li>
+                                                </c:forEach>
+                                                </ul>
+                                            </div>
                                         </c:if>
                                     </c:if>
                                 </div>
@@ -37,7 +42,7 @@
                                 <input  name="id" type="hidden"   value="${student.id}">
                                 <div class="input-field col s6">
                                     <input name="firstName" type="text" class="validate" data-length="30"value="${student.firstName}"/>
-                                    <label for="firstName">First Name</label>
+                                    <label for="firstName">First Name dal000</label>
                                 </div>
 
                                 <div class="input-field col s6">

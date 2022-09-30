@@ -1,5 +1,6 @@
 package com.bit.sams.controller;
 
+import com.bit.sams.controller.validator.Validate;
 import com.bit.sams.entity.students.Student;
 import com.bit.sams.service.BranchService;
 import com.bit.sams.service.CourseService;
@@ -8,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import com.google.gson.Gson;
+
+import java.util.*;
+
+
 @Controller
 @RequestMapping
 public class StudentController {
@@ -22,6 +26,9 @@ public class StudentController {
     @Autowired
     BranchService branchService;
 
+    @Autowired
+    Validate validate;
+
     @GetMapping("/addStudent")
     public ModelAndView addNewStudent(@RequestParam(value = "error", required = false) String error) {
 
@@ -29,6 +36,7 @@ public class StudentController {
         if (error != null) {
             errorMessage = "Invalid Username or Password !!";
         }
+        System.out.println("get mapping to load the blank form");
         ModelAndView mv = new ModelAndView("student/addStudent");
 
         mv.addObject("student", new Student());
@@ -40,18 +48,33 @@ public class StudentController {
 
     @PostMapping("addStudent")
     public ModelAndView addNewStudent(@ModelAttribute Student student) {
-
-        studentService.addStudent(student);
-
         ModelAndView mv = new ModelAndView("student/addStudent");
-        mv.addObject("mode", "Add");
-        mv.addObject("message", "Student successfully added.");
-        mv.addObject("student", new Student());
-        mv.addObject("success", true);
         mv.addObject("courseList", courseService.allCourses());
         mv.addObject("branchList", branchService.allBranches());
+        mv.addObject("mode", "Add New");
+        mv.addObject("student", student);
+
+        List<String> validationList = validate.validateStudent(student);
+        if (!validationList.isEmpty()) {
+            mv.addObject("success", "false");
+            mv.addObject("validationList", validationList);
+        } else {
+
+            studentService.addStudent(student);
+
+
+            System.out.println("Post mapping to create the student form");
+
+
+            mv.addObject("message", "Student successfully added.");
+            mv.addObject("student", new Student());
+            mv.addObject("success", true);
+
+        }
         return mv;
     }
+
+
 
 
     @GetMapping("/students")
