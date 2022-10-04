@@ -1,5 +1,6 @@
 package com.bit.sams.controller;
 
+import com.bit.sams.controller.validator.Validate;
 import com.bit.sams.entity.subject.Subject;
 import com.bit.sams.service.BranchService;
 import com.bit.sams.service.CourseService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping
@@ -25,6 +28,9 @@ public class SubjectController {
 
     @Autowired
     UtilService utilService;
+
+    @Autowired
+    Validate validate;
 
     @GetMapping("/newSubject")
     public ModelAndView addSubject(@RequestParam(value = "error", required = false) String error) {
@@ -46,28 +52,33 @@ public class SubjectController {
 
     @PostMapping("newSubject")
     public ModelAndView addNewCourse(@ModelAttribute Subject subject) {
-        System.out.println("Here to add new subject");
-
-
-        subjectService.addSubject(subject);
-
-
         ModelAndView mv = new ModelAndView("subject/addSubject");
         mv.addObject("mode", "Add New");
-        mv.addObject("message", "Subject successfully created.");
-        mv.addObject("subject", new Subject());
-        mv.addObject("success", true);
-        mv.addObject("courseList", courseService.allCourses());
-        mv.addObject("branchList", branchService.allBranches());
-        mv.addObject("departments", utilService.departments());
-        mv.addObject("subject", new Subject());
+        mv.addObject("subject",subject);
+        commonDataForView(mv);
+
+        List<String> validationList = validate.validateSubject(subject);
+        if (!validationList.isEmpty()) {
+            mv.addObject("success", "false");
+            mv.addObject("validationList", validationList);
+        } else {
+            subjectService.addSubject(subject);
+
+            mv.addObject("message", "Subject successfully created.");
+            mv.addObject("subject", new Subject());
+            mv.addObject("success", true);
+
+            mv.addObject("subject", new Subject());
+        }
         return mv;
     }
 
+
+
     @GetMapping("/allSubjectList")
-    public ModelAndView listOfCourses(){
+    public ModelAndView listOfCourses() {
         ModelAndView mv = new ModelAndView("subject/subjectList");
-         
+
 
         mv.addObject("subjectList", subjectService.allSubject());
         mv.addObject("courseList", courseService.allCourses());
@@ -77,4 +88,10 @@ public class SubjectController {
         return mv;
     }
 
+
+    private void commonDataForView(ModelAndView mv) {
+        mv.addObject("courseList", courseService.allCourses());
+        mv.addObject("branchList", branchService.allBranches());
+        mv.addObject("departments", utilService.departments());
+    }
 }

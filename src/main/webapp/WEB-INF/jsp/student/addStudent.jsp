@@ -27,11 +27,7 @@
                                         </c:if>
                                         <c:if test="${success eq  'false'}">
                                             <div class="red-text accent-4">
-                                            <ul>
-                                                <c:forEach var="validateMsg" items="${validationList}">
-                                                    <li> ${validateMsg}</li>
-                                                </c:forEach>
-                                                </ul>
+                                            <ul>  <c:forEach var="validateMsg" items="${validationList}">   <li> ${validateMsg}</li>  </c:forEach>  </ul>
                                             </div>
                                         </c:if>
                                     </c:if>
@@ -42,7 +38,7 @@
                                 <input  name="id" type="hidden"   value="${student.id}">
                                 <div class="input-field col s6">
                                     <input name="firstName" type="text" class="validate" data-length="30"value="${student.firstName}"/>
-                                    <label for="firstName">First Name dal000</label>
+                                    <label for="firstName">First Name</label>
                                 </div>
 
                                 <div class="input-field col s6">
@@ -65,7 +61,7 @@
                             <div class="row">
                                 <div class="col s12 m6 l6">
                                     <select class="browser-default"  id="mainCourseDropdown" name="courseId" style="margin: 5px;">
-                                        <option value="" disabled selected>Select Branch</option>
+                                        <option value="0" disabled selected>Select Course</option>
 
                                         <c:forEach items="${courseList}" var="course">
                                             <option value="${course.id}"<c:if test="${course.id == student.courseId}">selected</c:if>>${course.courseName}</option>
@@ -74,7 +70,7 @@
                                 </div>
                                 <div class="col s12 m6 l6">
                                     <select class="browser-default"  id="subCourseDropdown" name="subCourseId" style="margin: 5px;">
-                                        <option value="" disabled selected>Select Year</option>
+                                        <option value="0" disabled selected>Select Branch/Semester</option>
                                         <%--
                                         <c:forEach items="${branchList}" var="b">
                                             <option value="${b.id}"<c:if test="${b.id == student.subCourseId}">selected</c:if>>${b.branchName}</option>

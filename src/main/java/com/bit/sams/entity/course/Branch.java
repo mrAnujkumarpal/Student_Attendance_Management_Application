@@ -15,5 +15,6 @@ public class Branch extends BaseEntity {
     private String description;
 
     private int courseId;
-    private int classCordinatorId;
+
+    private int classCoordinatorId;
 }

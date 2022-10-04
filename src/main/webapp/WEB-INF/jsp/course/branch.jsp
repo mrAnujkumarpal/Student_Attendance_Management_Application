@@ -14,21 +14,20 @@
                 <div class="row">
 
                     <div class="col s12">
-                        <h5 class="grey-text"><i class="Small material-icons profile-card-i">add_circle_outline</i>${mode} Branch</h5>
+                        <h5 class="grey-text"><i class="Small material-icons profile-card-i">add_circle_outline</i>${mode} Branch/Semester</h5>
                     </div>
 
                     <div class="col s12 m12    z-depth-4 card-panel">
                         <form  method="post" action="/addBranch">
                             <div class="row">
-                                <div class="input-field col s10 offset-s1 center-align"> 
-                                    <c:if test="${success ne null}">
-                                        <c:if test="${success eq  'true'}">
-
-                                            <span class="green-text accent-4">${message} </span>
-                                        </c:if>
-                                        <c:if test="${success eq  'false'}">
-                                            <div class="red-text accent-4">${message} </div>
-                                        </c:if>
+                                <div class="input-field col s12 m10 l8 offset-m1 offset-l2">
+                                    <c:if test="${success eq  'true'}">
+                                        <span class="green-text accent-4">${message} </span>
+                                    </c:if>
+                                    <c:if test="${success eq  'false'}">
+                                        <div class="red-text accent-4">
+                                            <ul>  <c:forEach var="validateMsg" items="${validationList}">   <li> ${validateMsg}</li>  </c:forEach>  </ul>
+                                            </div>
                                     </c:if>
                                 </div>
                             </div>
@@ -37,7 +36,7 @@
 
                                 <div class="col s12">
                                     <select class="browser-default" name="courseId">
-                                        <option value="" disabled selected>Choose Main Branch</option>
+                                        <option value="" disabled selected>Choose Main Course</option>
                                         <%--   <c:forEach items="${courses}" var="c">
                                                <option value="${c.id}"> ${c.id}-${c.courseName}</option>
                                            </c:forEach>--%>
@@ -61,7 +60,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <textarea name="description" class="materialize-textarea" data-length="120"value="${branch.description}"></textarea>
+                                    <textarea name="description" class="materialize-textarea" data-length="120" value="${branch.description}"></textarea>
                                     <label for="description">Description</label>
                                 </div>
                             </div>

@@ -26,8 +26,20 @@ public class CourseImpl implements CourseService {
     }
 
     @Override
+    public List<Course> allActiveCourses() {
+        return courserRepository.findAllByEnable(true);
+    }
+
+    @Override
     public Course courseById(Integer courseId) {
         return courserRepository.getById(courseId);
+    }
+
+    @Override
+    public void disableCourse(Course course) {
+
+        course.setEnable(false);
+        courserRepository.save(course);
     }
 
 }

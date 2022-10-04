@@ -28,7 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>Department</th>
-                                    <th>Teacher's Role</th>
+                                    <th>Teacher's Designation</th>
                                     <th>Teacher's Name</th>
                                     <th>Mobile Number</th>
                                     <th>Email-ID</th>

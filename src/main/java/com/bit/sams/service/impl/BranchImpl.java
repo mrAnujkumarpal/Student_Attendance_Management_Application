@@ -1,6 +1,7 @@
 package com.bit.sams.service.impl;
 
 import com.bit.sams.entity.course.Branch;
+import com.bit.sams.entity.util.AppUtil;
 import com.bit.sams.repository.BranchRepository;
 import com.bit.sams.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,7 @@ public class BranchImpl implements BranchService {
     BranchRepository branchRepository;
 
     @Override
-    public void newBranch(Branch course) throws Exception {
-        System.out.println("Branch added inside repo");
+    public void newBranch(Branch course) {
         branchRepository.save(course);
     }
 
@@ -33,5 +33,13 @@ public class BranchImpl implements BranchService {
     @Override
     public List<Branch> branchListByCourseId(Integer courseId) {
          return branchRepository.findByCourseIdAndEnable(courseId,true);
+    }
+
+    @Override
+    public void disableBranch(Branch branch) {
+        branch.setEnable(false);
+        branch.setModifiedOn(AppUtil.currentTime());
+        branch.setModifiedBy(9999);
+        branchRepository.save(branch);
     }
 }

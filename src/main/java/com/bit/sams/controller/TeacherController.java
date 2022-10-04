@@ -1,6 +1,7 @@
 package com.bit.sams.controller;
 
 
+import com.bit.sams.controller.validator.Validate;
 import com.bit.sams.entity.students.Student;
 import com.bit.sams.entity.teachers.Teacher;
 import com.bit.sams.service.TeacherService;
@@ -23,6 +24,8 @@ public class TeacherController {
     @Autowired
     UtilService utilService;
 
+    @Autowired
+    Validate validate;
 
     @GetMapping("/newTeacher")
     public ModelAndView addTeacher(@RequestParam(value = "error", required = false) String error) {
@@ -43,14 +46,24 @@ public class TeacherController {
     @PostMapping("newTeacher")
     public ModelAndView addNewTeacher(@ModelAttribute Teacher teacher) {
 
-        teacherService.newTeacher(teacher);
-
         ModelAndView mv = new ModelAndView("teacher/addTeacher");
         mv.addObject("mode", "Add New");
-        mv.addObject("message", "Teacher successfully created.");
-        mv.addObject("teacher", new Teacher());
-        mv.addObject("success", true);
+        mv.addObject("teacher", teacher);
         commonDataForModelAndView(mv);
+
+        List<String> validationList = validate.validateTeacher(teacher);
+        if (!validationList.isEmpty()) {
+            mv.addObject("success", "false");
+            mv.addObject("validationList", validationList);
+
+      }else {
+          teacherService.newTeacher(teacher);
+
+
+          mv.addObject("success", true);
+          mv.addObject("teacher", new Teacher());
+          mv.addObject("message", "Teacher successfully created.");
+      }
         return mv;
     }
 

@@ -13,4 +13,6 @@ public interface BranchService {
     Branch branchById(Integer branchId);
 
     List<Branch> branchListByCourseId(Integer courseId);
+
+    void disableBranch(Branch branch);
 }

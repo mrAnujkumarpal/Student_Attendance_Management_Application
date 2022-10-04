@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import static com.bit.sams.entity.util.AppUtil.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -36,35 +36,88 @@ public class CourseController {
         return mv;
     }
 
-    @PostMapping(value = "/course/add")
+@GetMapping("/allCourses")
+public ModelAndView listOfCourses() {
+    ModelAndView mv = new ModelAndView("course/addCourse");
+    List<Course> courseList = courseService.allCourses();
+    mv.addObject("courseList", courseList);
+    return mv;
+}
+
+    @GetMapping(value = "/editCourse/{courseId}")
     @ResponseBody
-    public Map<String, String> addNewExpenseStatus(ModelMap model, HttpServletRequest request) {
-        System.out.println("comes here common Controller ");
-        Map<String, String> resp = new HashMap<>();
-        String courseCode = request.getParameter("courseCode").trim();
-        System.out.println("comes here courseCode " + courseCode);
-        String courseName = request.getParameter("courseName").trim();
-        System.out.println("comes here courseName " + courseName);
+    public Map<String, Object> editCourse(ModelMap model, @PathVariable int courseId) {
 
-        Course course = new Course();
-
-        course.setEnable(true);
-        course.setCourseName(courseName);
-        course.setCourseCode(courseCode);
-        courseService.newCourse(course);
-
+        Map<String, Object> resp = new HashMap<>();
+        Course course = courseService.courseById(courseId);
         resp.put("success", "true");
-        resp.put("message", courseName + " as new role added successfully.");
+        resp.put("id", course.getId());
+        resp.put("courseName", course.getCourseName());
+        resp.put("courseCode", course.getCourseCode());
         return resp;
     }
 
-    @GetMapping("/allCourses")
-    public ModelAndView listOfCourses() {
-        ModelAndView mv = new ModelAndView("course/addCourse");
-        List<Course> courseList = courseService.allCourses();
+    @PostMapping(value = "/clickEventOnCourseModel/add")
+    @ResponseBody
+    public Map<String, String> locationEventAdd(ModelMap model, HttpServletRequest request) {
+        System.out.println("comes here common Controller ");
+        Map<String, String> resp = new HashMap<>();
 
-        mv.addObject("courseList", courseList);
-        return mv;
+        String courseCode = request.getParameter("courseCode").trim();
+        String courseName = request.getParameter("courseName").trim();
+
+        Course course = new Course();
+        course.setCourseCode(courseCode);
+        course.setCourseName(courseName);
+        course.setCreatedBy(00001);
+        courseService.newCourse(course);
+        resp.put("success", "true");
+        resp.put("message", " ' "+courseName+" ' " +" as new course successfully added.");
+        return resp;
+    }
+
+    @PostMapping(value = "/clickEventOnCourseModel/update")
+    @ResponseBody
+    public Map<String, String> locationEventUpdate(ModelMap model, HttpServletRequest request) {
+
+        Map<String, String> resp = new HashMap<>();
+        String courseId = request.getParameter("courseId").trim();
+        String courseCode = request.getParameter("courseCode").trim();
+        String courseName = request.getParameter("courseName").trim();
+
+        Course course = courseService.courseById(Integer.parseInt(courseId));
+        if(course.isEnable()){
+            course.setCourseCode(courseCode);
+            course.setCourseName(courseName);
+            course.setModifiedBy(9999);
+            course.setModifiedOn(currentTime());
+            courseService.newCourse(course);
+            resp.put("success", "true");
+            resp.put("message", "Course successfully updated.");
+        }else{
+            resp.put("success", "false");
+            resp.put("message", "This course is de-activated. Please contact your administrator.");
+        }
+
+
+        return resp;
+    }
+
+    @GetMapping(value = "/deleteCourse/{courseId}")
+    @ResponseBody
+    public Map<String, String> deleteCourse(ModelMap model, @PathVariable int courseId) {
+        Map<String, String> resp = new HashMap<>();
+        System.out.println("comes here common Controller ");
+        Course course = courseService.courseById(courseId);
+        if(course.isEnable()) {
+            courseService.disableCourse(course);
+            resp.put("success", "true");
+            resp.put("message",course.getCourseName() +" has been deleted successfully !!!");
+        }else{
+            resp.put("success", "false");
+            resp.put("message", "This course is already de-activated. Please contact your administrator.");
+        }
+        return resp;
     }
 
 }

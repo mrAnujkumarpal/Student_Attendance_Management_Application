@@ -33,7 +33,7 @@ $(document).ready(function () {
 
 });
 var calculatecontsize = $("#page-content-wrapper").height();
-$('#sidebar-wrapper').css({"height": calculatecontsize + "px"});
+$('#sidebar-wrapper').css({'height': calculatecontsize + "px"});
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");

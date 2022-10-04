@@ -10,4 +10,7 @@ import java.util.List;
 public interface BranchRepository extends JpaRepository<Branch,Integer> {
 
     List<Branch> findByCourseIdAndEnable(Integer courseId, Boolean enable);
+
+    Branch findByBranchCode(String branchCode);
+
 }

@@ -11,8 +11,16 @@
 
 
 <!-- Sweet Alert -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+<%--
+<script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+--%>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css" integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js" integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
 
 <style>
     .profile-card-i {
@@ -33,22 +41,8 @@
         <a class="navbar-brand" href="#"></a>
         <a href="#" class="brand-logo center">
             <img class="responsive-img" style="height: 60px;"  src="https://www.bhagwantgroup.com/img/logo.png"/>
-
         </a>
-
-    </div>
-    <!-- navbar-header-->
-
-    <!--        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2">
-                            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-                        </button>
-                    </li>
-                </ul>
-            </div>-->
-    <!-- bs-example-navbar-collapse-1 -->
+    </div> 
 </nav>
 
 
@@ -101,6 +95,7 @@
             </li>
         </ul>
     </div>
+
     <!-- /#sidebar-wrapper -->
 
 
@@ -172,8 +167,6 @@
         $(document).ready(function () {
             initMenu();
         });
-        /*
-         var calculateContSize = $("#page-content-wrapper").height();
-         $('#sidebar-wrapper').css({"height": calculateContSize + "px"});
-         */
+
+
     </script>

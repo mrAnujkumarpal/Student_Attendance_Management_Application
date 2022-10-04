@@ -58,19 +58,15 @@ public class StudentController {
         if (!validationList.isEmpty()) {
             mv.addObject("success", "false");
             mv.addObject("validationList", validationList);
-        } else {
-
-            studentService.addStudent(student);
-
-
-            System.out.println("Post mapping to create the student form");
-
-
-            mv.addObject("message", "Student successfully added.");
-            mv.addObject("student", new Student());
-            mv.addObject("success", true);
-
+            return mv;
         }
+
+        studentService.addStudent(student);
+        mv.addObject("message", "Student successfully added.");
+
+        mv.addObject("student", new Student());
+        mv.addObject("success", true);
+
         return mv;
     }
 

@@ -15,7 +15,7 @@ public class ValidateHelper {
         return bool;
     }
 
-    public boolean validateValueByRegex(String value, String regex) {
+    public static boolean validateValueByRegex(String value, String regex) {
         Boolean bool = false;
         if (regex != null && regex.trim().length() != 0) {
             boolean matchesRegex = matchesRegex(value, regex);
@@ -27,7 +27,7 @@ public class ValidateHelper {
     }
 
 
-    private boolean matchesRegex(String value, String regex) {
+    private static boolean matchesRegex(String value, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(value);
         return matcher.matches();
